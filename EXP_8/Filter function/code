@@ -1,0 +1,50 @@
+% Digital Signal Processing (EC3109) - Experiment 8
+% Using built-in filter() function
+clc;
+clear;
+close all;
+
+%% Step 2 to 4: Time Index and Unit Impulse Generation
+
+n = -5 : 1 : 10;                  % Discrete time index n = -5:1:10
+idx_zero = find(n == 0);          % Find index where n = 0
+x = zeros(size(n));               % Initialize x(n) = 0
+x(idx_zero) = 1;                  % Unit impulse: x(0) = 1
+
+%% Case 1: b1 = 2
+b_1 = [1 0];                      % Numerator: b = [1 0]
+a_1 = [1 -2];               % Denominator: a = [1 -2]
+  
+% Compute output sequence using filter()
+y_case1 = filter(b_1, a_1, x);
+
+%% Case 2: b1 = 0.5
+b_2 = [1 0];                      % Numerator: b = [1 0]
+a_2 = [1 -0.5];               % Denominator: a = [1 -0.5]
+
+% Compute output sequence using filter()
+y_case2 = filter(b_2, a_2, x);
+
+%% Plotting Results
+figure('Name', 'DSP Exp 8 - filter() Method', 'NumberTitle', 'off');
+
+% Plot Input Sequence
+subplot(3, 1, 1);
+stem(n, x, 'filled', 'LineWidth', 1.5);
+title('Input Sequence: Unit Impulse x(n)');
+xlabel('n'); ylabel('x(n)');
+grid on;
+
+% Plot Output for b1 = 2
+subplot(3, 1, 2);
+stem(n, y_case1, 'r', 'filled', 'LineWidth', 1.5);
+title('Output y(n) using filter() for b_1 = 2 (Unstable)');
+xlabel('n'); ylabel('y(n)');
+grid on;
+
+% Plot Output for b1 = 0.5
+subplot(3, 1, 3);
+stem(n, y_case2, 'b', 'filled', 'LineWidth', 1.5);
+title('Output y(n) using filter() for b_1 = 0.5 (Stable)');
+xlabel('n'); ylabel('y(n)');
+grid on;
